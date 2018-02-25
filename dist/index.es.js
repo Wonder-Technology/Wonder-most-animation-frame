@@ -25,27 +25,27 @@ var createClass = function () {
     };
 }();
 
-var nextAnimationFrame = function nextAnimationFrame(afp) {
-    return new AnimationFrame(afp);
+var nextAnimationFrame = function nextAnimationFrame() {
+    return { source: new AnimationFrame() };
 };
 
-var animationFrames = function animationFrames(afp) {
+var animationFrames = function animationFrames() {
     // return continueWith(function () {
     //   return animationFrames(afp);
     // }, nextAnimationFrame(afp));
     return {
         f: function () {
-            return animationFrames(afp);
+            return animationFrames();
         },
-        source: nextAnimationFrame(afp)
+        source: nextAnimationFrame()
     }
 };
 
 var AnimationFrame = function () {
-    function AnimationFrame(afp) {
+    function AnimationFrame() {
         classCallCheck(this, AnimationFrame);
 
-        this.afp = afp;
+        // this.afp = afp;
     }
 
     var _originTime = null;
@@ -71,7 +71,7 @@ var AnimationFrame = function () {
             // return eventThenEnd(currentTime(newDefaultScheduler() ), timestamp, sink);
             eventThenEnd(_getCurrentTime, timestamp, sink);
 
-            _runRequest(sink, null);
+            // _runRequest(sink, null);
         };
         // var request = this.afp.requestAnimationFrame(propagate);
         var request = window.requestAnimationFrame(propagate);
